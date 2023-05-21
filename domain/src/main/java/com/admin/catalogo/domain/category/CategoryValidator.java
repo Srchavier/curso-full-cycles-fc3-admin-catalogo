@@ -29,11 +29,11 @@ public class CategoryValidator extends Validator {
             this.validationHandler().append(new Error("'name' should not be null"));
         }
 
-        if(name.isBlank()) {
+        if(name != null && name.isBlank()) {
             this.validationHandler().append(new Error("'name' should not be black"));
         }
 
-        if(name.length() > NAME_MAX_LENGTH || name.trim().length() < NAME_MIN_LENGTH) {
+        if(name != null && (name.length() > NAME_MAX_LENGTH || name.trim().length() < NAME_MIN_LENGTH)) {
             this.validationHandler().append(new Error("'name' must be between 3 and 255 character"));
         }
     }

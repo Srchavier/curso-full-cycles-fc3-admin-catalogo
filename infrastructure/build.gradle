@@ -24,6 +24,10 @@ dependencies {
     implementation(project(':domain'))
     implementation(project(':application'))
     
+    
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.3.1'
+
     // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
 }

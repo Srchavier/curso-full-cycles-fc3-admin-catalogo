@@ -9,7 +9,7 @@ public abstract class Entity<ID extends Identifier> {
     protected final ID id;
 
     protected Entity(final ID id) {
-        Objects.requireNonNull(id, "'id' should not be nulll");
+        Objects.requireNonNull(id, "'id' should not be null");
         this.id = id;
     }
 
@@ -18,7 +18,6 @@ public abstract class Entity<ID extends Identifier> {
     public ID getId() {
         return id;
     }
-
 
     @Override
     public boolean equals(final Object o) {
