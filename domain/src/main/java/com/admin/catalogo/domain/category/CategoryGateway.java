@@ -6,14 +6,14 @@ import com.admin.catalogo.domain.pagination.Pagination;
 
 public interface CategoryGateway {
 
-    Category create(Category aCategory);
+    Category create(final Category aCategory);
 
-    void deleteById(CategoryID anId);
+    void deleteById(final CategoryID anId);
 
-    Optional<Category> findById(CategoryID anId);
+    Optional<Category> findById(final CategoryID anId);
 
-    CategoryID update(Category aCategory);
+    Category update(final Category aCategory);
 
-    Pagination<Category> findAll(CategorySearchQuery aQuery);
+    Pagination<Category> findAll(final CategorySearchQuery aQuery);
     
 }

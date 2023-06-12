@@ -23,7 +23,7 @@ dependencies {
     implementation(project(':domain'))
 
     // https://mvnrepository.com/artifact/io.vavr/vavr
-    implementation 'io.vavr:vavr:1.0.0-alpha-4'
+    implementation('io.vavr:vavr:0.10.4')
 
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'

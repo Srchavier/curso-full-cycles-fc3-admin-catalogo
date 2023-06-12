@@ -67,7 +67,7 @@ public class UpdateCategoryUseCaseTest {
         when(categoryGateway.findById(eq(expectedId)))
             .thenReturn(Optional.of(Category.with(aCategory)));
 
-        when(categoryGateway.update(any())).thenReturn(expectedId);
+        when(categoryGateway.update(any())).thenReturn(aCategory);
 
 
         final var actualOutput = useCase.execute(aCommand).get();
@@ -146,7 +146,7 @@ public class UpdateCategoryUseCaseTest {
         when(categoryGateway.findById(eq(expectedId)))
             .thenReturn(Optional.of(Category.with(aCategory)));
 
-        when(categoryGateway.update(any())).thenReturn(expectedId);
+        when(categoryGateway.update(any())).thenReturn(aCategory);
 
         final var actualOutput = useCase.execute(aCommand).get();
 

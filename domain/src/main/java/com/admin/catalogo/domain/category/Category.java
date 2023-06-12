@@ -4,6 +4,8 @@
 package com.admin.catalogo.domain.category;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 import com.admin.catalogo.domain.AggregateRoot;
 import com.admin.catalogo.domain.validation.ValidationHandler;
@@ -24,14 +26,14 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
         this.name = aName;
         this.description = aDescription;
         this.active = isActive;
-        this.createdAt = aCreationDate;
-        this.updatedAt = aUpdateDate;
+        this.createdAt = Objects.requireNonNull(aCreationDate, "'createdAt' should not be null");
+        this.updatedAt =  Objects.requireNonNull(aUpdateDate, "'updatedAt' should not be null");
         this.deletedAt = aDeleteDate;
     }
 
     public static Category newCategory(final String aName, final String aDescription, final Boolean isActive) {
         final var id = CategoryID.unique();
-        final var now = Instant.now();
+        final var now = Instant.now().truncatedTo(ChronoUnit.MICROS);
         final var deleteAt = isActive ? null: now; 
         return new Category(id, aName, aDescription, isActive, now, now, deleteAt);
     }
@@ -52,7 +54,7 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
             final CategoryID anId,
             final String name,
             final String description,
-            final boolean active,
+            final Boolean active,
             final Instant createdAt,
             final Instant updatedAt,
             final Instant deletedAt
@@ -205,5 +207,6 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
             throw new AssertionError();
         }
     }
+
 
 }
