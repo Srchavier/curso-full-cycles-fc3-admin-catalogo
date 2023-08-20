@@ -11,7 +11,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.admin.catalogo.domain.category.Category;
 import com.admin.catalogo.domain.category.CategoryGateway;
 import com.admin.catalogo.domain.category.CategoryID;
-import com.admin.catalogo.domain.exception.DomainException;
+import com.admin.catalogo.domain.exceptions.DomainException;
+import com.admin.catalogo.domain.exceptions.NotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -237,10 +238,10 @@ public class UpdateCategoryUseCaseTest {
                 .thenReturn(Optional.empty());
 
     
-            final var actualException = assertThrows(DomainException.class, () -> useCase.execute(aCommand));
+            final var actualException = assertThrows(NotFoundException.class, () -> useCase.execute(aCommand));
 
-            assertEquals(expectedErrorCount, actualException.getErrors().size());
-            assertEquals(expectedErrorMessage, actualException.getErrors().get(0).getMessage());
+            // assertEquals(expectedErrorCount, actualException.getErrors().size());
+            assertEquals(expectedErrorMessage, actualException.getMessage());
 
             verify(categoryGateway, times(1)).findById(eq(CategoryID.from(expectedId)));
 

@@ -17,7 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.admin.catalogo.domain.category.Category;
 import com.admin.catalogo.domain.category.CategoryGateway;
 import com.admin.catalogo.domain.category.CategoryID;
-import com.admin.catalogo.domain.exception.DomainException;
+import com.admin.catalogo.domain.exceptions.DomainException;
 
 @ExtendWith(MockitoExtension.class)
 public class GetCategoryByIdUseCaseTest {

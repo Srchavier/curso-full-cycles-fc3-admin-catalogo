@@ -6,7 +6,7 @@ package com.admin.catalogo.domain;
 import org.junit.jupiter.api.Test;
 
 import com.admin.catalogo.domain.category.Category;
-import com.admin.catalogo.domain.exception.DomainException;
+import com.admin.catalogo.domain.exceptions.DomainException;
 import com.admin.catalogo.domain.validation.handler.ThrowsValidationHandler;
 
 import static org.junit.jupiter.api.Assertions.*;

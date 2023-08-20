@@ -3,7 +3,7 @@ package com.admin.catalogo.domain.validation.handler;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.admin.catalogo.domain.exception.DomainException;
+import com.admin.catalogo.domain.exceptions.DomainException;
 import com.admin.catalogo.domain.validation.Error;
 import com.admin.catalogo.domain.validation.ValidationHandler;
 

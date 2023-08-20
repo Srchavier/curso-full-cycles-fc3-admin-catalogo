@@ -1,12 +1,12 @@
-package com.admin.catalogo.domain.exception;
+package com.admin.catalogo.domain.exceptions;
 
 import java.util.List;
 
 public class DomainException extends NoStacktraceException {
 
-    private final List<com.admin.catalogo.domain.validation.Error> errors;
+    protected final List<com.admin.catalogo.domain.validation.Error> errors;
 
-    private DomainException(final String aMessage, List<com.admin.catalogo.domain.validation.Error> anErrors) {
+    protected DomainException(final String aMessage, List<com.admin.catalogo.domain.validation.Error> anErrors) {
         super(aMessage);
         this.errors = anErrors;
     }

@@ -1,4 +1,4 @@
-package com.admin.catalogo.domain.exception;
+package com.admin.catalogo.domain.exceptions;
 
 public class NoStacktraceException extends RuntimeException{
 

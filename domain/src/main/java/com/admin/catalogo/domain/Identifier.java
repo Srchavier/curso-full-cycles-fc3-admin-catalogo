@@ -1,5 +1,6 @@
 package com.admin.catalogo.domain;
 
-public class Identifier {
+public abstract class Identifier extends ValueObject {
 
+    public abstract String getValue();
 }

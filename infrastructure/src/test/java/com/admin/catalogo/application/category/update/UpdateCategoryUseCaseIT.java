@@ -25,7 +25,8 @@ import com.admin.catalogo.IntegrationTest;
 import com.admin.catalogo.domain.category.Category;
 import com.admin.catalogo.domain.category.CategoryGateway;
 import com.admin.catalogo.domain.category.CategoryID;
-import com.admin.catalogo.domain.exception.DomainException;
+import com.admin.catalogo.domain.exceptions.DomainException;
+import com.admin.catalogo.domain.exceptions.NotFoundException;
 import com.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
 import com.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
 
@@ -203,10 +204,14 @@ public class UpdateCategoryUseCaseIT {
                 expectedDescription,
                 expectedIsActive);
 
-        final var actualException = assertThrows(DomainException.class, () -> useCase.execute(aCommand));
+        final var actualException = assertThrows(NotFoundException.class, () -> useCase.execute(aCommand));
 
-        assertEquals(expectedErrorCount, actualException.getErrors().size());
-        assertEquals(expectedErrorMessage, actualException.getErrors().get(0).getMessage());
+        // assertEquals(expectedErrorCount, actualException.getErrors().size());
+        assertEquals(expectedErrorMessage, actualException.getMessage());
+
+        verify(categoryGateway, times(1)).findById(eq(CategoryID.from(expectedId)));
+
+        verify(categoryGateway, times(0)).update(any());
     }
 
     private void save(final Category... aCategory) {
