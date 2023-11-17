@@ -6,20 +6,19 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.ActiveProfiles;
+
+import com.admin.catalogo.infrastructure.configiration.ObjectMapperConfig;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @ActiveProfiles("test-integration")
-@DataJpaTest
-@ComponentScan(includeFilters = {
-    @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".[MySQLGateway]")
+@JsonTest(includeFilters = {
+    @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = ObjectMapperConfig.class)
 })
-@ExtendWith(MySQLCleanUpExtension.class)
-public @interface MySQLGatewayTest {
+public @interface JacksonTest {
 }

@@ -4,7 +4,7 @@ import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record CategoryApiOutput (
+public record UpdateCategoryResponse (
 
     @JsonProperty("id") 
     String id,
@@ -22,11 +22,8 @@ public record CategoryApiOutput (
     Instant createdAt,
 
     @JsonProperty("updated_at") 
-    Instant updateAt,
+    Instant updatedAt,
 
     @JsonProperty("deleted_at") 
     Instant deletedAt
-
-) {
-
-}
+){}

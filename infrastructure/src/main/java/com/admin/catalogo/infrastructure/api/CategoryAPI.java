@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.admin.catalogo.domain.pagination.Pagination;
-import com.admin.catalogo.infrastructure.category.models.CategoryApiOutput;
-import com.admin.catalogo.infrastructure.category.models.CreateCategoryApiInput;
-import com.admin.catalogo.infrastructure.category.models.UpdateCategoryApiInput;
+import com.admin.catalogo.infrastructure.category.models.CategoryListResponse;
+import com.admin.catalogo.infrastructure.category.models.CategoryResponse;
+import com.admin.catalogo.infrastructure.category.models.CreateCategoryRequest;
+import com.admin.catalogo.infrastructure.category.models.UpdateCategoryRequest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -37,7 +39,7 @@ public interface CategoryAPI {
                         @ApiResponse(responseCode = "422", description = "A validation error was thrown"),
                         @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
         })
-        ResponseEntity<?> createCategory(@RequestBody @Valid CreateCategoryApiInput apiInput);
+        ResponseEntity<?> createCategory(@RequestBody @Valid CreateCategoryRequest apiInput);
 
         @GetMapping
         @ResponseStatus(code = HttpStatus.OK)
@@ -47,14 +49,14 @@ public interface CategoryAPI {
                         @ApiResponse(responseCode = "422", description = "A invalid parameter was received"),
                         @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
         })
-        Pagination<?> listCategory(
+        Pagination<CategoryListResponse> listCategory(
                         @RequestParam(name = "search", required = false, defaultValue = "") String search,
                         @RequestParam(name = "page", required = false, defaultValue = "0") int page,
                         @RequestParam(name = "perPage", required = false, defaultValue = "10") int perpage,
                         @RequestParam(name = "sort", required = false, defaultValue = "name") String sort,
-                        @RequestParam(name = "page", required = false, defaultValue = "desc") String direction);
+                        @RequestParam(name = "dir", required = false, defaultValue = "asc") String direction);
 
-        @GetMapping(value = "{id}")
+        @GetMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
         @ResponseStatus(code = HttpStatus.OK)
         @Operation(summary = "Get a category by it`s identifier")
         @ApiResponses(value = {
@@ -62,7 +64,7 @@ public interface CategoryAPI {
                         @ApiResponse(responseCode = "404", description = "Category not found"),
                         @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
         })
-        CategoryApiOutput getById(@PathVariable String id);
+        CategoryResponse getById(@PathVariable String id);
 
 
         @PutMapping(value = "{id}")
@@ -73,6 +75,16 @@ public interface CategoryAPI {
                         @ApiResponse(responseCode = "404", description = "Category not found"),
                         @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
         })
-        ResponseEntity<?> updateById(@PathVariable String id, @RequestBody UpdateCategoryApiInput input);
+        ResponseEntity<?> updateById(@PathVariable String id, @RequestBody UpdateCategoryRequest input);
+
+        @DeleteMapping(value = "{id}")
+        @ResponseStatus(code = HttpStatus.NO_CONTENT)
+        @Operation(summary = "Delete a category by it`s identifier")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "204", description = "Category delete successfully"),
+                        @ApiResponse(responseCode = "404", description = "Category not found"),
+                        @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
+        })
+        void deleteById(@PathVariable String id);
 
 }

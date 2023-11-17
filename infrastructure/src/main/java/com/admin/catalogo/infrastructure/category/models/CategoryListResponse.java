@@ -1,8 +1,13 @@
 package com.admin.catalogo.infrastructure.category.models;
 
+import java.time.Instant;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record CreateCategoryApiInput(
+public record CategoryListResponse (
+    @JsonProperty("id") 
+    String id,
+
     @JsonProperty("name") 
     String name,
     
@@ -10,7 +15,11 @@ public record CreateCategoryApiInput(
     String description,
 
     @JsonProperty("is_active") 
-    Boolean active
-) {
-    
-}
+    Boolean active,
+
+    @JsonProperty("created_at") 
+    Instant createdAt,
+
+    @JsonProperty("deleted_at") 
+    Instant deletedAt
+){}

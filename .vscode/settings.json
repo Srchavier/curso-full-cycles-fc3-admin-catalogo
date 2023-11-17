@@ -2,5 +2,8 @@
     "java.compile.nullAnalysis.mode": "automatic",
     "java.dependency.syncWithFolderExplorer": true,
     "java.dependency.packagePresentation": "hierarchical",
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "cSpell.words": [
+        "Testcontainers"
+    ]
 }
