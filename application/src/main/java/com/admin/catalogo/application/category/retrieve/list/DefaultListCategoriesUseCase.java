@@ -3,7 +3,7 @@ package com.admin.catalogo.application.category.retrieve.list;
 import java.util.Objects;
 
 import com.admin.catalogo.domain.category.CategoryGateway;
-import com.admin.catalogo.domain.category.CategorySearchQuery;
+import com.admin.catalogo.domain.pagination.SearchQuery;
 import com.admin.catalogo.domain.pagination.Pagination;
 
 public class DefaultListCategoriesUseCase extends ListCategoriesUseCase {
@@ -17,7 +17,7 @@ public class DefaultListCategoriesUseCase extends ListCategoriesUseCase {
 
 
     @Override
-    public Pagination<CategoryListOutput> execute(CategorySearchQuery aQuery) {
+    public Pagination<CategoryListOutput> execute(SearchQuery aQuery) {
         return this.categoryGateway.findAll(aQuery)
                 .map(CategoryListOutput::from);
     }

@@ -14,7 +14,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import com.admin.catalogo.IntegrationTest;
 import com.admin.catalogo.domain.category.Category;
 import com.admin.catalogo.domain.category.CategoryGateway;
-import com.admin.catalogo.domain.category.CategorySearchQuery;
+import com.admin.catalogo.domain.pagination.SearchQuery;
 import com.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
 import com.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
 
@@ -55,7 +55,7 @@ public class ListCategoriesUseCaseIT {
         final var expectedItemsCount = 0;
         final var expectedTotal = 0;
 
-        final var aQuery = new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort,
+        final var aQuery = new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort,
                 expectedDirecion);
 
         final var actualResult = useCase.execute(aQuery);
@@ -88,7 +88,7 @@ public class ListCategoriesUseCaseIT {
         final var expectedSort = "name";
         final var expectedDirecion = "asc";
 
-        final var aQuery = new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort,
+        final var aQuery = new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort,
                 expectedDirecion);
 
         final var actualResult = useCase.execute(aQuery);
@@ -119,7 +119,7 @@ public class ListCategoriesUseCaseIT {
 
         final var expectedTerms = "";
 
-        final var aQuery = new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort,
+        final var aQuery = new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort,
                 expectedDiretion);
 
         final var actualResult = useCase.execute(aQuery);
@@ -150,7 +150,7 @@ public class ListCategoriesUseCaseIT {
         final var expectedDirecion = "asc";
         final var expectedSort = "name";
 
-        final var aQuery = new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort,
+        final var aQuery = new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort,
                 expectedDirecion);
 
         final var actualResult = useCase.execute(aQuery);

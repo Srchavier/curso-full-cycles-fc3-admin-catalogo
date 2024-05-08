@@ -16,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.admin.catalogo.domain.category.Category;
 import com.admin.catalogo.domain.category.CategoryGateway;
-import com.admin.catalogo.domain.category.CategorySearchQuery;
+import com.admin.catalogo.domain.pagination.SearchQuery;
 import com.admin.catalogo.domain.pagination.Pagination;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,7 +47,7 @@ public class ListCategoriesUseCaseTest {
         final var expectedSort = "createdAt";
         final var expectedDirecion = "asc";
 
-        final var aQuery = new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirecion);
+        final var aQuery = new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirecion);
 
         final var expectedPagination = new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);
 
@@ -77,7 +77,7 @@ public class ListCategoriesUseCaseTest {
         final var expectedSort = "createdAt";
         final var expectedDirecion = "asc";
 
-        final var aQuery = new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirecion);
+        final var aQuery = new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirecion);
 
         final var expectedPagination = new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);
 
@@ -104,7 +104,7 @@ public class ListCategoriesUseCaseTest {
         final var expectedDirecion = "asc";
         final var expectedErrorMessage = "Gateway error";
 
-        final var aQuery = new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirecion);
+        final var aQuery = new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirecion);
 
         when(categoryGateway.findAll(aQuery)).thenThrow(new IllegalStateException(expectedErrorMessage));
 

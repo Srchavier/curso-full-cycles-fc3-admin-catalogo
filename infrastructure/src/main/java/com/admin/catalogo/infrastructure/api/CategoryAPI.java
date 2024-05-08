@@ -56,7 +56,7 @@ public interface CategoryAPI {
                         @RequestParam(name = "sort", required = false, defaultValue = "name") String sort,
                         @RequestParam(name = "dir", required = false, defaultValue = "asc") String direction);
 
-        @GetMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
+        @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE )
         @ResponseStatus(code = HttpStatus.OK)
         @Operation(summary = "Get a category by it`s identifier")
         @ApiResponses(value = {
