@@ -1,5 +1,7 @@
 package com.admin.catalogo.infrastructure.category;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.PageRequest;
@@ -79,6 +81,11 @@ public class CategoryMySQLGateway implements CategoryGateway{
                 pageResult.getTotalElements(),
                 pageResult.map(CategoryJpaEntity::toAggregate).toList()
             );
+    }
+
+    @Override
+    public List<CategoryID> existsByIds(Iterable<CategoryID> ids) {
+        return Collections.emptyList();
     }
     
 }

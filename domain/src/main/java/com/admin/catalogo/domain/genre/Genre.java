@@ -59,7 +59,7 @@ public class Genre extends AggregateRoot<GenreID> {
 
     @Override
     public void validate(ValidationHandler handler) {
-        new GenreValidator(this, handler).validate();;
+        new GenreValidator(this, handler).validate();
         
     }
 
@@ -74,12 +74,23 @@ public class Genre extends AggregateRoot<GenreID> {
         return this;
     }
 
-    public Genre removeCategory(CategoryID anCategoryID) {
-        if(anCategoryID == null) {
+    public Genre addCategories(List<CategoryID> aCategories) {
+        if(aCategories == null || aCategories.isEmpty()) {
             return this;
         }
 
-        this.categories.remove(anCategoryID);
+        this.categories.addAll(aCategories);
+        this.updatedAt = InstantUtils.now();
+
+        return this;
+    }
+
+    public Genre removeCategory(CategoryID aCategoryID) {
+        if(aCategoryID == null) {
+            return this;
+        }
+
+        this.categories.remove(aCategoryID);
         this.updatedAt = InstantUtils.now();
 
         return this;

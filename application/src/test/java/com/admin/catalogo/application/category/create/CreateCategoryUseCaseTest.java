@@ -4,10 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
@@ -16,18 +14,24 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Objects;
 
+import com.admin.catalogo.application.UseCaseTest;
 import com.admin.catalogo.domain.category.CategoryGateway;
 
-@ExtendWith(MockitoExtension.class)
-public class CreateCategoryUseCaseTest {
+public class CreateCategoryUseCaseTest  extends UseCaseTest{
 
     @InjectMocks
     private DefaultCreateCategoryUseCase useCase;
 
     @Mock
     private CategoryGateway categoryGateway;
+    
+    @Override
+    public List<Object> getMocks() {
+        return List.of(categoryGateway);
+    }
 
     // 1. Teste do caminho feliz
     // 2. Teste passando uma propriedade inválida (name)
