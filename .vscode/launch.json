@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Admin Catalogo API",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.admin.catalogo.infrastructure.Main",
+            "projectName": "infrastructure",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

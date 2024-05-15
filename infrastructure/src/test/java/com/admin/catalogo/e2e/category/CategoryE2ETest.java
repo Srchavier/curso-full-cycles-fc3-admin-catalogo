@@ -42,7 +42,7 @@ public class CategoryE2ETest {
     private CategoryRepository categoryRepository;
 
     @Container
-    private static final MySQLContainer MYSQL_CONTAINER = new MySQLContainer("mysql:latest")
+    private static final MySQLContainer MYSQL_CONTAINER = new MySQLContainer("mysql:8.0.26")
             .withPassword("123456")
             .withUsername("root")
             .withDatabaseName("adm_videos");

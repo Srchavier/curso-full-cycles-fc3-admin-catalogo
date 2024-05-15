@@ -6,9 +6,12 @@
 	"image": "mcr.microsoft.com/devcontainers/base:jammy",
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
-		"ghcr.io/devcontainers/features/java:1": {},
-		"ghcr.io/devcontainers-contrib/features/gradle-sdkman:2": {},
-		"ghcr.io/devcontainers-contrib/features/maven-sdkman:2": {}
+		"ghcr.io/devcontainers/features/java:1": {
+            "version": "17",
+            "jdkDistro": "tem", // Eclipse Temurin
+            "installGradle": true,
+            "gradleVersion": "7.6"
+        },
 	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.

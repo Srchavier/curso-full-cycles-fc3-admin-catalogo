@@ -66,9 +66,11 @@ dependencies {
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-afterburner
     implementation 'com.fasterxml.jackson.module:jackson-module-afterburner'     
 
-    testImplementation('org.testcontainers:testcontainers:1.17.2')
-    testImplementation('org.testcontainers:mysql:1.17.2')
-    testImplementation('org.testcontainers:junit-jupiter:1.17.2')
+    implementation platform('org.testcontainers:testcontainers-bom:1.19.8') //import bom
+
+    testImplementation('org.testcontainers:testcontainers:1.19.8')
+    testImplementation('org.testcontainers:mysql:1.19.8')
+    testImplementation('org.testcontainers:junit-jupiter:1.19.8')
     
     testRuntimeOnly('com.h2database:h2')
 }

@@ -7,7 +7,7 @@ import com.admin.catalogo.domain.genre.Genre;
 import com.admin.catalogo.domain.genre.GenreGateway;
 import com.admin.catalogo.domain.genre.GenreID;
 
-public class DefaultByIdGenreUseCase extends ByIdGenreUseCase {
+public class DefaultByIdGenreUseCase extends GetByIdGenreUseCase {
 
 
     

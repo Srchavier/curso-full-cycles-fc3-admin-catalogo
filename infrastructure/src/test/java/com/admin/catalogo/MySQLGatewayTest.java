@@ -17,9 +17,12 @@ import org.springframework.test.context.ActiveProfiles;
 @Inherited
 @ActiveProfiles("test-integration")
 @DataJpaTest
-@ComponentScan(includeFilters = {
-    @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".[MySQLGateway]")
-})
+@ComponentScan(
+    basePackages = "com.admin.catalogo",
+    includeFilters = {
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".[MySQLGateway]")
+    }
+)
 @ExtendWith(MySQLCleanUpExtension.class)
 public @interface MySQLGatewayTest {
 }

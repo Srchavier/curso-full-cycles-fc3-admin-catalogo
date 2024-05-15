@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.admin.catalogo.domain.category.Category;
 import com.admin.catalogo.domain.category.CategoryGateway;
@@ -19,7 +19,7 @@ import com.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
 import com.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
 import com.admin.catalogo.infrastructure.utils.SpecificationUtils;
 
-@Service
+@Component
 public class CategoryMySQLGateway implements CategoryGateway{
 
     private final CategoryRepository categoryRepository;
@@ -67,9 +67,7 @@ public class CategoryMySQLGateway implements CategoryGateway{
         // Busca dinamica pelo criterio terms (name ou description)
         final var specifications = Optional.ofNullable(aQuery.terms())
                 .filter(str -> !str.isBlank())
-                .map(str -> {            
-                    return  SpecificationUtils.<CategoryJpaEntity>like("name", str).or(SpecificationUtils.<CategoryJpaEntity>like("description", str));
-                })
+                .map(this::assembleSpecification)
                 .orElse(null);
 
         final var pageResult =
@@ -81,6 +79,11 @@ public class CategoryMySQLGateway implements CategoryGateway{
                 pageResult.getTotalElements(),
                 pageResult.map(CategoryJpaEntity::toAggregate).toList()
             );
+    }
+
+    private Specification<CategoryJpaEntity> assembleSpecification(String str) {
+        return  SpecificationUtils.<CategoryJpaEntity>like("name", str)
+                    .or(SpecificationUtils.<CategoryJpaEntity>like("description", str));
     }
 
     @Override

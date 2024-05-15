@@ -92,7 +92,7 @@ public class GenreTest {
         """;
         final var expectedIsActive = true;
         final var expectedErrorCount = 1;
-        final var expectedErrorMassage = "'name' must be between 1 and 255 character";
+        final var expectedErrorMassage = "'name' must be between 3 and 255 character";
 
 
         final var actualException = assertThrows(NotificationException.class, () -> {
