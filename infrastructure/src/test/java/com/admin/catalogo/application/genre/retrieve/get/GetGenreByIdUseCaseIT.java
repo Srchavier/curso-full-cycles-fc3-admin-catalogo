@@ -20,7 +20,6 @@ import com.admin.catalogo.domain.exceptions.NotFoundException;
 import com.admin.catalogo.domain.genre.Genre;
 import com.admin.catalogo.domain.genre.GenreGateway;
 import com.admin.catalogo.domain.genre.GenreID;
-import com.admin.catalogo.infrastructure.genre.persistence.GenreRepository;
 
 @IntegrationTest
 public class GetGenreByIdUseCaseIT {
@@ -33,9 +32,6 @@ public class GetGenreByIdUseCaseIT {
 
     @SpyBean
     private CategoryGateway categoryGateway;
-
-    @Autowired
-    private GenreRepository genreRepository;
 
     @Test
     public void givenAValidId_whenCallsGetGenre_shouldReturnGenre() {
