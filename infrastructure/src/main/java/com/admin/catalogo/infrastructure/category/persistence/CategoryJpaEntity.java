@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import com.admin.catalogo.domain.category.Category;
 import com.admin.catalogo.domain.category.CategoryID;
 
-@Entity
+@Entity(name = "Category")
 @Table(name = "category")
 public class CategoryJpaEntity {
 

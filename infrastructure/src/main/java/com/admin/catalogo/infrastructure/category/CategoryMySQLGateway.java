@@ -1,8 +1,8 @@
 package com.admin.catalogo.infrastructure.category;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -87,8 +87,13 @@ public class CategoryMySQLGateway implements CategoryGateway{
     }
 
     @Override
-    public List<CategoryID> existsByIds(Iterable<CategoryID> ids) {
-        return Collections.emptyList();
+    public List<CategoryID> existsByIds(Iterable<CategoryID> aCategoriesds) {
+        final var ids = StreamSupport.stream(aCategoriesds.spliterator(), false)
+            .map(CategoryID::getValue)
+            .toList();
+        return this.categoryRepository.existsByIds(ids).stream()
+                    .map(CategoryID::from)
+                    .toList();
     }
     
 }

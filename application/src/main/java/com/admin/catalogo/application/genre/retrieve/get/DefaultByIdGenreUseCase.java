@@ -9,8 +9,6 @@ import com.admin.catalogo.domain.genre.GenreID;
 
 public class DefaultByIdGenreUseCase extends GetByIdGenreUseCase {
 
-
-    
     private final GenreGateway genreGateway;
 
     public DefaultByIdGenreUseCase(final GenreGateway genreGateway) {
