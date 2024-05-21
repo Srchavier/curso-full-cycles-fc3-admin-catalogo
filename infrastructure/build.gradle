@@ -22,6 +22,15 @@ version '1.0-SNAPSHOT'
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    jcenter()
+    google()
+}
+
+allprojects {
+  repositories {
+    google()
+    jcenter()
+  }
 }
 
 bootJar {
@@ -67,6 +76,13 @@ dependencies {
     implementation 'com.fasterxml.jackson.module:jackson-module-afterburner'     
 
     implementation platform('org.testcontainers:testcontainers-bom:1.19.8') //import bom
+
+    // https://mvnrepository.com/artifact/org.yaml/snakeyaml
+    implementation 'org.yaml:snakeyaml:1.28'
+
+
+    implementation ('com.github.javafaker:javafaker:0.14') { exclude module: 'org.yaml' }
+
 
     testImplementation('org.testcontainers:testcontainers:1.19.8')
     testImplementation('org.testcontainers:mysql:1.19.8')

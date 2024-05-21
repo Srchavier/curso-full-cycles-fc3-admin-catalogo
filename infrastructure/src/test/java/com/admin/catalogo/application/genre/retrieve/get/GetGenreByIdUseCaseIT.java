@@ -6,6 +6,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.time.Duration;
+import java.util.Comparator;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -34,9 +36,10 @@ public class GetGenreByIdUseCaseIT {
     private CategoryGateway categoryGateway;
 
     @Test
-    public void givenAValidId_whenCallsGetGenre_shouldReturnGenre() {
+    public void givenAValidId_whenCallsGetGenre_shouldReturnGenre() throws InterruptedException {
 
         final var filmes = categoryGateway.create(Category.newCategory("Filmes", null, true));
+        Thread.sleep(Duration.ofMillis(1000).toMillis());
         final var series = categoryGateway.create(Category.newCategory("Series", null, true));
 
         final var expectedName = "name";
@@ -47,6 +50,7 @@ public class GetGenreByIdUseCaseIT {
         final var expectId = aGenre.getId();
 
         final var actualGenre = useCase.execute(expectId.getValue());
+        
 
         assertEquals(expectId.getValue(), actualGenre.id());
         assertEquals(expectedName, actualGenre.name());
@@ -75,6 +79,10 @@ public class GetGenreByIdUseCaseIT {
 
     private List<String> asString(final List<CategoryID> categories) {
         return categories.stream().map(CategoryID::getValue).toList();
+    }
+
+    private List<CategoryID> sorted(List<CategoryID> categoryIDs) {
+        return categoryIDs.stream().sorted(Comparator.comparing(CategoryID::getValue)).toList();
     }
 
 }

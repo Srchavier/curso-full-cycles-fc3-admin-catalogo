@@ -24,7 +24,7 @@ import com.admin.catalogo.domain.genre.GenreGateway;
 import com.admin.catalogo.infrastructure.genre.persistence.GenreRepository;
 
 @IntegrationTest
-public class CreateGenreUseCaseIT{
+public class CreateGenreUseCaseIT {
 
     @Autowired
     private CreateGenreUseCase useCase;
@@ -37,7 +37,6 @@ public class CreateGenreUseCaseIT{
 
     @Autowired
     private GenreRepository genreRepository;
-
 
     @Test
     void givenAValidCommand_whenCallsCreateGenre_shouldReturnGenreId() {
@@ -135,7 +134,6 @@ public class CreateGenreUseCaseIT{
         verify(genreGateway, times(0)).create(any());
     }
 
-    
     @Test
     void givenAInValidNullName_whenCallsCreateGenre_shouldReturnDomainException() {
         final String expectedName = null;
@@ -156,7 +154,6 @@ public class CreateGenreUseCaseIT{
         verify(genreGateway, times(0)).create(any());
     }
 
-
     @Test
     void givenAInvalidName_whenCallsCreateGenreAndSomeCategoriesDoesNotExists_shouldReturnDomainException() {
         final var series = categoryGateway.create(Category.newCategory("Filmes", null, true));
@@ -167,10 +164,9 @@ public class CreateGenreUseCaseIT{
         final String expectedName = " ";
         final var expectedActive = true;
         final var expectedCategories = List.of(
-            films,
-            series.getId(),
-            doc
-            );
+                films,
+                series.getId(),
+                doc);
 
         final var expectedErrorMessage = "Some categories could not be found: 123, 12345";
         final var expectedErrorMessage2 = "'name' should not be black";
@@ -189,16 +185,14 @@ public class CreateGenreUseCaseIT{
         verify(categoryGateway, times(1)).existsByIds(any());
         verify(genreGateway, times(0)).create(any());
 
-
     }
 
     private List<String> asString(final List<CategoryID> categories) {
         return categories.stream().map(CategoryID::getValue).toList();
     }
 
-        private List<CategoryID> sorted(List<CategoryID> categoryIDs) {
+    private List<CategoryID> sorted(List<CategoryID> categoryIDs) {
         return categoryIDs.stream().sorted(Comparator.comparing(CategoryID::getValue)).toList();
     }
-
 
 }
