@@ -4,7 +4,6 @@
 package com.admin.catalogo.domain.category;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 import com.admin.catalogo.domain.AggregateRoot;

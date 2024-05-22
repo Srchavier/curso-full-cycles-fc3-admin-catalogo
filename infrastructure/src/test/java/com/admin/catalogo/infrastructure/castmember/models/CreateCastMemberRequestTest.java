@@ -8,8 +8,6 @@ import org.springframework.boot.test.json.JacksonTester;
 import com.admin.catalogo.Fixture;
 import com.admin.catalogo.JacksonTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @JacksonTest
 class CreateCastMemberRequestTest {
 
