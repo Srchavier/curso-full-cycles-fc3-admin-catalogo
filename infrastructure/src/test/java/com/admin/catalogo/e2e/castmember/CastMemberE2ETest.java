@@ -11,17 +11,19 @@ import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import com.admin.catalogo.E2ETest;
 import com.admin.catalogo.Fixture;
 import com.admin.catalogo.domain.castmember.CastMemberID;
 import com.admin.catalogo.domain.castmember.CastMemberType;
+import com.admin.catalogo.e2e.MockDsl;
 import com.admin.catalogo.infrastructure.castmember.persistence.CastMemberRepository;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@com.admin.catalogo.E2ETest
+@E2ETest
 @Testcontainers
-public class CastMemberE2ETest implements com.admin.catalogo.e2e.MockDsl {
+public class CastMemberE2ETest implements MockDsl {
 
     @Autowired
     private MockMvc mvc;
