@@ -14,8 +14,10 @@ import com.admin.catalogo.infrastructure.castmember.persistence.CastMemberJpaEnt
 import com.admin.catalogo.infrastructure.castmember.persistence.CastMemberRepository;
 import com.admin.catalogo.infrastructure.utils.SpecificationUtils;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 @Component
 public class CastMemberMySQLGateway implements CastMemberGateway {
@@ -81,5 +83,15 @@ public class CastMemberMySQLGateway implements CastMemberGateway {
 
     private Specification<CastMemberJpaEntity> assembleSpecification(final String terms) {
         return SpecificationUtils.like("name", terms);
+    }
+
+    @Override
+    public List<CastMemberID> existsByIds(Iterable<CastMemberID> genreIDS) {
+          final var ids = StreamSupport.stream(genreIDS.spliterator(), false)
+                .map(CastMemberID::getValue)
+                .toList();
+        return this.castMemberRepository.existsByIds(ids).stream()
+                .map(CastMemberID::from)
+                .toList();
     }
 }

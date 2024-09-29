@@ -1,5 +1,6 @@
 package com.admin.catalogo.domain.castmember;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.admin.catalogo.domain.pagination.Pagination;
@@ -16,4 +17,6 @@ public interface CastMemberGateway {
     CastMember update(CastMember aCastMember);
 
     Pagination<CastMember> findAll(SearchQuery aQuery);
+
+    List<CastMemberID> existsByIds(final Iterable<CastMemberID> genreIDS);
 }
