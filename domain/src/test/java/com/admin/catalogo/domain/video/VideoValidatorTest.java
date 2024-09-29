@@ -46,7 +46,7 @@ public class VideoValidatorTest {
                 expectedCastMembers);
 
         final var expectedErrorCount = 1;
-        final var expectedErrorMessage = "'name' should not be null";
+        final var expectedErrorMessage = "'title' should not be null";
 
         final var validator = new VideoValidator(actualVideo, new ThrowsValidationHandler());
         // when
@@ -106,7 +106,7 @@ public class VideoValidatorTest {
     @Test
     public void givenWithLengthGreaterThan255Title_whenCallsValidate_shouldReceiveError() {
         // given
-        final String expectedTitle = "Verose e furiosos";
+        final String expectedTitle = "k";
         final var expectedDescription = """
                     The Fast and the Furious (também conhecido como Velozes e Furiosos) é uma franquia de mídia e Universo Compartilhado
                     centrado em uma série de filmes de ação que estão amplamente preocupados com corridas de rua, assaltos, espiões e família.

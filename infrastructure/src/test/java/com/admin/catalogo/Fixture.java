@@ -1,8 +1,8 @@
 package com.admin.catalogo;
 
 import com.admin.catalogo.domain.castmember.CastMemberType;
+import com.github.javafaker.Faker;
 
-import net.datafaker.Faker;
 
 public final class Fixture {
 
@@ -15,8 +15,7 @@ public final class Fixture {
     public static final class CastMember {
 
         public static CastMemberType type() {
-            return FAKER.options()
-                    .option(CastMemberType.ACTOR, CastMemberType.DIRECTOR);
+            return CastMemberType.ACTOR;
         }
     }
 }
