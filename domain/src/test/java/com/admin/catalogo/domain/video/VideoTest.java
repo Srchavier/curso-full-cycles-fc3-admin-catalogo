@@ -81,22 +81,24 @@ public class VideoTest {
     
     @Test
     public void givenValidVideo_whenCallsUpdate_shouldREturnUpdated() {
-        // given
-        final var expectedTitle = "Veloses e furiosos";
-        final var expectedDescription = """
-            The Fast and the Furious (também conhecido como Velozes e Furiosos) é uma franquia de mídia e Universo Compartilhado 
-            centrado em uma série de filmes de ação que estão amplamente preocupados com corridas de rua, assaltos, espiões e família.   
-        """;
-        final var expectedLauchedAt = Year.of(2010);
-        final var expectedDuration = 120.0;
-        final var expectedOpened = false;
-        final var expectedPublished = false;
-        final var expectedRating = Rating.L;
-        final var expectedCategories = Set.of(CategoryID.unique());
-        final var expectedGenres = Set.of(GenreID.unique());
-        final var expectedCastMembers = Set.of(CastMemberID.unique());
-
-        final var aVideo = Video.newVideo(
+           // given
+           final var expectedTitle = "System Design Interviews";
+           final var expectedDescription = """
+                   Disclaimer: o estudo de caso apresentado tem fins educacionais e representa nossas opiniões pessoais.
+                   Esse vídeo faz parte da Imersão Full Stack && Full Cycle.
+                   Para acessar todas as aulas, lives e desafios, acesse:
+                   https://imersao.fullcycle.com.br/
+                   """;
+           final var expectedLaunchedAt = Year.of(2022);
+           final var expectedDuration = 120.10;
+           final var expectedOpened = false;
+           final var expectedPublished = false;
+           final var expectedRating = Rating.L;
+           final var expectedCategories = Set.of(CategoryID.unique());
+           final var expectedGenres = Set.of(GenreID.unique());
+           final var expectedMembers = Set.of(CastMemberID.unique());
+   
+           final var aVideo = Video.newVideo(
             "teste",
             "lalalal ssss",
             Year.of(1999),
@@ -108,20 +110,21 @@ public class VideoTest {
             Set.of(),
             Set.of()
         );
-        // when
 
+
+        // when
         final var actualVideo = Video.with(aVideo).update(
             expectedTitle,
             expectedDescription,
-            expectedLauchedAt,
+            expectedLaunchedAt,
             expectedDuration,
-            expectedRating,
             expectedOpened,
             expectedPublished,
+            expectedRating,
             expectedCategories,
             expectedGenres,
-            expectedCastMembers
-        );
+            expectedMembers
+    );
 
         // then
 
@@ -131,14 +134,14 @@ public class VideoTest {
         assertTrue(aVideo.getUpdatedAt().isBefore(actualVideo.getUpdatedAt()));
         assertEquals(expectedTitle, actualVideo.getTitle());
         assertEquals(expectedDescription, actualVideo.getDescription());
-        assertEquals(expectedLauchedAt, actualVideo.getLaunchedAt());
+        assertEquals(expectedLaunchedAt, actualVideo.getLaunchedAt());
         assertEquals(expectedDuration, actualVideo.getDuration());
         assertEquals(expectedOpened, actualVideo.getOpened());
         assertEquals(expectedPublished, actualVideo.getPublished());
         assertEquals(expectedRating, actualVideo.getRating());
         assertEquals(expectedCategories, actualVideo.getCategories());
         assertEquals(expectedGenres, actualVideo.getGenres());
-        assertEquals(expectedCastMembers, actualVideo.getCastMembers());
+        assertEquals(expectedMembers, actualVideo.getCastMembers());
         assertTrue(actualVideo.getVideo().isEmpty());
         assertTrue(actualVideo.getTrailer().isEmpty());
         assertTrue(actualVideo.getBanner().isEmpty());

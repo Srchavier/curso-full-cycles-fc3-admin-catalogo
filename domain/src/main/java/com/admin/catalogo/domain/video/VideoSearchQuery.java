@@ -7,5 +7,4 @@ public record VideoSearchQuery(
     String sort,
     String direction
 ) {
-
 }

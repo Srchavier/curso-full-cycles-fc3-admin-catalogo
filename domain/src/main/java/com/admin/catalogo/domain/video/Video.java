@@ -57,7 +57,7 @@ public class Video extends AggregateRoot<VideoID> {
             final AudioVideoMedia aVideo,
             final Set<CategoryID> categories,
             final Set<GenreID> genres,
-            final Set<CastMemberID> castmembers) {
+            final Set<CastMemberID> castMembers) {
 
         super(anId);
         this.title = aTitle;
@@ -76,12 +76,12 @@ public class Video extends AggregateRoot<VideoID> {
         this.video = aVideo;
         this.categories = categories;
         this.genres = genres;
-        this.castMembers = castmembers;
+        this.castMembers = castMembers;
     }
 
     @Override
     public void validate(final ValidationHandler aHandler) {
-        new VideoValidator(this, aHandler);
+        new VideoValidator(this, aHandler).validate();;
     }
 
     public static Video newVideo(
@@ -94,7 +94,7 @@ public class Video extends AggregateRoot<VideoID> {
             final boolean wasPublished,
             final Set<CategoryID> categories,
             final Set<GenreID> genres,
-            final Set<CastMemberID> castmembers) {
+            final Set<CastMemberID> castMembers) {
 
         final var now = InstantUtils.now();
         final var anId = VideoID.unique();
@@ -117,7 +117,7 @@ public class Video extends AggregateRoot<VideoID> {
                 null,
                 categories,
                 genres,
-                castmembers
+                castMembers
             );
     }
 
@@ -147,29 +147,28 @@ public class Video extends AggregateRoot<VideoID> {
 
   
     public Video update(
-        final String aTitle,
-        final String aDescription,
-        final Year aLaunchedAt,
-        final double aDuration,
-        final Rating aRating,
-        final boolean wasOpened,
-        final boolean wasPublished,
-        final Set<CategoryID> categories,
-        final Set<GenreID> genres,
-        final Set<CastMemberID> castmembers) {
-
-            this.title = aTitle;
-            this.description = aDescription;
-            this.launchedAt = aLaunchedAt;
-            this.duration = aDuration;
-            this.rating = aRating;
-            this.opened = wasOpened;
-            this.published = wasPublished;
-            this.setCategories(categories);;
-            this.setGenres(genres);
-            this.setCastMembers(castmembers);
-            this.updatedAt = InstantUtils.now();
-
+            final String aTitle,
+            final String aDescription,
+            final Year aLaunchYear,
+            final double aDuration,
+            final boolean wasOpened,
+            final boolean wasPublished,
+            final Rating aRating,
+            final Set<CategoryID> categories,
+            final Set<GenreID> genres,
+            final Set<CastMemberID> members
+    ) {
+        this.title = aTitle;
+        this.description = aDescription;
+        this.launchedAt = aLaunchYear;
+        this.duration = aDuration;
+        this.opened = wasOpened;
+        this.published = wasPublished;
+        this.rating = aRating;
+        this.setCategories(categories);
+        this.setGenres(genres);
+        this.setCastMembers(members);
+        this.updatedAt = InstantUtils.now();
         return this;
     }
 

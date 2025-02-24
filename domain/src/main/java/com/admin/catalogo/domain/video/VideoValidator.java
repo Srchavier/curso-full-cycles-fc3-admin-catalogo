@@ -6,10 +6,8 @@ import com.admin.catalogo.domain.validation.Validator;
 
 public class VideoValidator extends Validator {
 
-    private static final int NAME_MIN_LENGTH_TITLE = 3;
-    private static final int NAME_MAX_LENGTH_TITLE = 255;
-    private static final int NAME_MIN_LENGTH_DESCRIPTION = 3;
-    private static final int NAME_MAX_LENGTH_DESCRIPTION = 4000;
+    private static final int TITLE_MAX_LENGTH = 255;
+    private static final int DESCRIPTION_MAX_LENGTH = 4_000;
 
     private Video video;
 
@@ -28,56 +26,49 @@ public class VideoValidator extends Validator {
 
     private void checkTitleConstraints() {
         final var title = this.video.getTitle();
-
         if (title == null) {
             this.validationHandler().append(new Error("'title' should not be null"));
+            return;
         }
 
-        if (title != null && title.isBlank()) {
-            this.validationHandler().append(new Error("'title' should not be blank"));
+        if (title.isBlank()) {
+            this.validationHandler().append(new Error("'title' should not be empty"));
+            return;
         }
 
-        if (title != null
-                && (title.length() > NAME_MAX_LENGTH_TITLE || title.trim().length() < NAME_MIN_LENGTH_TITLE)) {
-            this.validationHandler().append(new Error("'title' must be between %s and %s character"
-                    .formatted(NAME_MIN_LENGTH_TITLE, NAME_MAX_LENGTH_TITLE)));
+        final int length = title.trim().length();
+        if (length > TITLE_MAX_LENGTH) {
+            this.validationHandler().append(new Error("'title' must be between 1 and 255 characters"));
         }
     }
 
     private void checkDescriptionConstraints() {
         final var description = this.video.getDescription();
-
         if (description == null) {
-            this.validationHandler().append(new Error("'description' should not be empty"));
+            this.validationHandler().append(new Error("'description' should not be null"));
+            return;
         }
 
-        if (description != null && description.isBlank()) {
+        if (description.isBlank()) {
             this.validationHandler().append(new Error("'description' should not be empty"));
+            return;
         }
 
-        if (description != null && (description.length() > NAME_MAX_LENGTH_DESCRIPTION
-                || description.trim().length() < NAME_MIN_LENGTH_DESCRIPTION)) {
-            this.validationHandler().append(new Error("'description' must be between %s and %s character"
-                    .formatted(NAME_MIN_LENGTH_DESCRIPTION, NAME_MAX_LENGTH_DESCRIPTION)));
+        final int length = description.trim().length();
+        if (length > DESCRIPTION_MAX_LENGTH) {
+            this.validationHandler().append(new Error("'description' must be between 1 and 4000 characters"));
         }
     }
 
     private void checkLaunchedAtConstraints() {
-        final var launchedAt = this.video.getLaunchedAt();
-
-        if (launchedAt == null) {
-            this.validationHandler().append(new Error("'launcherAt' should not be null"));
+        if (this.video.getLaunchedAt() == null) {
+            this.validationHandler().append(new Error("'launchedAt' should not be null"));
         }
-
     }
 
     private void checkRatingConstraints() {
-        final var rating = this.video.getRating();
-
-        if (rating == null) {
+        if (this.video.getRating() == null) {
             this.validationHandler().append(new Error("'rating' should not be null"));
         }
-
     }
-
 }

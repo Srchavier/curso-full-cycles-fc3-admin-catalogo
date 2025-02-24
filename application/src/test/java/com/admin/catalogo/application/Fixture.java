@@ -6,10 +6,15 @@ import com.admin.catalogo.domain.category.Category;
 import com.admin.catalogo.domain.genre.Genre;
 import com.admin.catalogo.domain.video.Rating;
 import com.admin.catalogo.domain.video.Resource;
+import com.admin.catalogo.domain.video.Video;
 
 import io.vavr.collection.List;
 
 import static io.vavr.API.*;
+
+import java.time.Year;
+import java.util.Set;
+
 import net.datafaker.Faker;
 
 public final class Fixture {
@@ -26,6 +31,10 @@ public final class Fixture {
 
     public static Double duration() {
         return FAKER.options().option(120.0, 15.5, 35.0, 3.0, 10.0);
+    }
+
+    public static boolean bool() {
+        return FAKER.bool().bool();
     }
 
     public static String title() {
@@ -48,7 +57,6 @@ public final class Fixture {
         public static Category aulas() {
             return AULAS.clone();
         }
-
     }
 
     public static final class Genres {
@@ -73,6 +81,14 @@ public final class Fixture {
         public static Genre serie() {
             return Genre.with(SERIE);
         }
+
+        public static final Genre TECH =
+        Genre.newGenre("Technology", true);
+
+        public static Genre tech() {
+            return Genre.with(TECH);
+        }
+        
     }
 
     public static final class CastMembers {
@@ -81,9 +97,15 @@ public final class Fixture {
 
         public static CastMember EDUARDO = CastMember.newMember("eduardo", CastMemberType.DIRECTOR);
 
+        private static final CastMember GABRIEL =
+                CastMember.newMember("Gabriel FullCycle", CastMemberType.ACTOR);
 
         public static CastMember wesley() {
             return CastMember.with(WESLEY);
+        }
+
+        public static CastMember gabriel() {
+            return CastMember.with(GABRIEL);
         }
 
         public static CastMember eduardo() {
@@ -97,34 +119,55 @@ public final class Fixture {
         }
     }
 
-    public static final class Videos {
+ public static final class Videos {
 
-        public static Rating rating() {
-            return FAKER.options().option(Rating.AGE_10, Rating.AGE_12, Rating.AGE_14, Rating.AGE_16, Rating.AGE_18,
-                    Rating.ER, Rating.L);
+
+        private static final Video SYSTEM_DESIGN = Video.newVideo(
+                "System Design no Mercado Livre na prática",
+                description(),
+                Year.of(2022),
+                Fixture.duration(),
+                rating(),
+                Fixture.bool(),
+                Fixture.bool(),
+                Set.of(Categories.aulas().getId()),
+                Set.of(Genres.tech().getId()),
+                Set.of(CastMembers.wesley().getId(), CastMembers.gabriel().getId())
+        );
+
+        public static Video systemDesign() {
+            return Video.with(SYSTEM_DESIGN);
         }
 
-        
-        public static Resource resource(final Resource.Type type) {
+        public static Rating rating() {
+            return FAKER.options().option(Rating.values());
+        }
 
+        public static Resource resource(final Resource.Type type) {
             final String contentType = Match(type).of(
-                Case($(List.of(Resource.Type.VIDEO, Resource.Type.TRAILER)::contains), "video/mp4"),
-                Case($(), "image/png")
+                    Case($(List(Resource.Type.VIDEO, Resource.Type.TRAILER)::contains), "video/mp4"),
+                    Case($(), "image/jpg")
             );
 
             final byte[] content = "Conteudo".getBytes();
+
             return Resource.with(content, contentType, type.name().toLowerCase(), type);
         }
 
-
         public static String description() {
-            return FAKER.options()
-                    .option(
-                            "The Fast and the Furious (também conhecido como Velozes e Furiosos) é uma franquia de mídia e Universo Compartilhado centrado em uma série de filmes de ação que estão amplamente preocupados com corridas de rua, assaltos, espiões e família.",
-                            "O tema principal de Central do Brasil é a separação e a perda. Ambos os personagens principais experimentaram perdas dolorosas, e encontram no \"apego\" que eles desenvolvem gradualmente um com outro, cheios de ambivalência, uma maneira de reparar os danos sofridos anteriormente em suas vidas.");
+            return FAKER.options().option(
+                    """
+                            Disclaimer: o estudo de caso apresentado tem fins educacionais e representa nossas opiniões pessoais.
+                            Esse vídeo faz parte da Imersão Full Stack && Full Cycle.
+                            Para acessar todas as aulas, lives e desafios, acesse:
+                            https://imersao.fullcycle.com.br/
+                            """,
+                    """
+                            Nesse vídeo você entenderá o que é DTO (Data Transfer Object), quando e como utilizar no dia a dia, 
+                            bem como sua importância para criar aplicações com alta qualidade.
+                            """
+            );
         }
-
-
     }
 
 }

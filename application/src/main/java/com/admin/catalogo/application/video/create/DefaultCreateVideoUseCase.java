@@ -27,8 +27,6 @@ import com.admin.catalogo.domain.video.VideoGateway;
 
 public class DefaultCreateVideoUseCase extends CreateVideoUseCase {
 
-
-	
     private final CategoryGateway categoryGateway;
 
     private final GenreGateway genreGateway;
@@ -47,6 +45,7 @@ public class DefaultCreateVideoUseCase extends CreateVideoUseCase {
 	@Override
 	public CreateVideoOutput execute(final CreateVideoCommand aCommand) {
 		final var aRating = Rating.of(aCommand.rating()).orElseThrow(invalidRating(aCommand.rating()));
+		final var aLauncherYear = Year.of(aCommand.launchedAt());
 		final var categories = toIdentifier(aCommand.categories(), CategoryID::from);
 		final var genres = toIdentifier(aCommand.genres(), GenreID::from);
 		final var members = toIdentifier(aCommand.members(), CastMemberID::from);
@@ -54,12 +53,12 @@ public class DefaultCreateVideoUseCase extends CreateVideoUseCase {
 		final var notification = Notification.create();
 		notification.append(validateCategories(categories));
 		notification.append(validateGenres(genres));
-		// notification.append(validateMembers(members));
+		notification.append(validateMembers(members));
 
 		final var aVideo = Video.newVideo(
 			aCommand.title(),
 			aCommand.description(), 
-			Year.of(aCommand.launchedAt()), 
+			aLauncherYear, 
 			aCommand.duration(), 
 			aRating, 
 			aCommand.opened(), 
@@ -100,9 +99,9 @@ public class DefaultCreateVideoUseCase extends CreateVideoUseCase {
         return validateAggregate("genres", ids, genreGateway::existsByIds);
 	}
 
-	// private ValidationHandler validateMembers(Set<CastMemberID> ids) {
-    //     return validateAggregate("cast members", ids, castMemberGateway::existsByIds);
-	// }
+	private ValidationHandler validateMembers(Set<CastMemberID> ids) {
+        return validateAggregate("cast members", ids, castMemberGateway::existsByIds);
+	}
 
 	private <T extends Identifier> ValidationHandler validateAggregate(final String aggregate, final Set<T> ids, final Function<Iterable<T>, List<T>> existsByIds) {
 		final var notification = Notification.create();
